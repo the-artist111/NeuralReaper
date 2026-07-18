@@ -57,7 +57,7 @@ The result: you describe an objective in plain English, and Claude plans and exe
 What makes it worth putting on a resume rather than just a script:
 
 - **A live, auto-updating CVE engine.** [Nuclei](https://github.com/projectdiscovery/nuclei) ships 12,000+ community templates and is updated continuously, so the scanner isn't frozen at whatever existed when the image was built.
-- **Isolated by design.** Every tool runs inside a locked-down, non-root Kali/Ubuntu container — never on the host.
+- **Isolated by design.** Every tool runs inside a locked-down, non-root Ubuntu container — never on the host.
 - **A real engineering trail.** Built across Windows + WSL2 + Docker Desktop + Claude Desktop, hitting (and solving) the exact integration failures documented below instead of glossing over them.
 - **Breadth across the full modern assessment surface** — network/web recon, Active Directory attack-path enumeration, cryptographic/post-quantum posture, supply-chain dependency auditing, and local fuzzing — not just a wrapper around one scanner.
 
@@ -65,12 +65,11 @@ What makes it worth putting on a resume rather than just a script:
 
 ## Design Philosophy — Detection, Not Weaponization
 
-Comparable AI-agent pentest frameworks exist, and some — most notably [HexStrike AI](https://hexstrike.com) — ship an automated exploit-generation component on top of recon/scanning. That design choice has a documented downside: within hours of HexStrike's public release, security researchers observed threat actors on dark-web forums discussing how to weaponize it, tied to real-world exploitation of Citrix NetScaler zero-days (CVE-2025-7775) — attackers used the framework's own automation to compress what used to take days of manual exploit development down to roughly 10 minutes.
+Comparable AI-agent pentest frameworks exist, and some — most notably [HexStrike AI](https://hexstrike.com/) — ship an automated exploit-generation layer on top of recon/scanning. Within hours of HexStrike's public release, researchers observed threat actors discussing how to weaponize it against a Citrix NetScaler zero-day (CVE-2025-7775), compressing what used to take days of manual exploit development into roughly 10 minutes.
 
-NeuralReaper deliberately stops one step earlier in that chain. Every tool here **identifies, enumerates, and reports** — it does not generate working exploit payloads, and it never will. Where the underlying open-source tool's normal function is itself the "exploit" step against an authorized target (`sqlmap` extracting data from an injectable parameter you own, `certipy` requesting a certificate via a misconfigured template in your own lab) that's wrapped the same way the security community already treats those tools. What's intentionally absent is any *novel* exploit-generation, payload-crafting, or autonomous weaponization layer — including for the specific CVEs referenced in this README. The CVE watchlist below is **lookup-only**: it calls existing Nuclei templates and ExploitDB entries for matches, and writes zero detection or exploitation logic of its own for any named vulnerability.
+NeuralReaper deliberately stops one step earlier. Every tool here identifies, enumerates, and reports — it does not generate exploit payloads, and it never will. The CVE watchlist is lookup-only: it calls existing Nuclei templates and ExploitDB entries for matches, writing zero new detection or exploitation logic of its own.
 
-That's a constraint, not a missing feature — and it's worth saying explicitly in a portfolio context: building security tooling responsibly, with an eye on how it could be misused, is itself a skill.
-
+That's a constraint, not a missing feature — and worth saying explicitly: building security tooling with an eye on how it could be misused is itself a skill.
 ---
 
 ## Architecture
