@@ -281,7 +281,7 @@ NeuralReaper/
 
 - [ ] Native bridge-network mode with explicit port mapping for Windows/macOS Docker Desktop
 - [ ] Structured JSON output mode per tool (for downstream parsing instead of raw text)
-- [x] ~~Optional report generator that aggregates a full session into a single Markdown/PDF pentest report~~ — shipped in v3.0 as `generate_report`
+- [x] ~~Session report generator that aggregates a full engagement into a single Markdown document~~ — shipped as `generate_report`
 - [ ] PDF export option for `generate_report` (currently Markdown only)
 - [ ] CI pipeline that builds the image and runs `tests/smoke_test.sh` on every push
 - [ ] PingCastle integration — currently skipped; it's a .NET/Windows-only tool meant to run on a domain-joined host, not from a Linux container against a remote target. Best used as a separate, complementary tool rather than forced into this container via Wine/Mono.
