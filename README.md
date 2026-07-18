@@ -23,8 +23,8 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-required-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![MCP](https://img.shields.io/badge/Protocol-MCP-orange)](https://modelcontextprotocol.io)
+[![Tools](https://img.shields.io/badge/Tools-46-success)](README.md#tool-arsenal)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-
 </div>
 
 ---
