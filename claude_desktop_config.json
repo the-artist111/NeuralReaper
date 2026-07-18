@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "NeuralReaper": {
+      "command": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--network", "host",
+        "--cap-add", "NET_RAW",
+        "--cap-add", "NET_ADMIN",
+        "-e", "MAX_TOOL_RUNTIME=180",
+        "neuralreaper:latest"
+      ]
+    }
+  }
+}

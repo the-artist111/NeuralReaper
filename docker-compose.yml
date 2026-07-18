@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  neuralreaper:
+    build: .
+    image: neuralreaper:latest
+    container_name: neuralreaper
+    network_mode: host
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+    environment:
+      - MAX_TOOL_RUNTIME=180
+    stdin_open: true
+    tty: false
+    # NeuralReaper communicates over stdio (MCP), not a network port —
+    # there is intentionally no `ports:` mapping here.
