@@ -266,8 +266,14 @@ NeuralReaper/
 ├── docker-compose.yml          # Alternative to manual `docker run`
 ├── requirements.txt            # Python deps (mcp, fastmcp)
 ├── claude_desktop_config.json  # Drop-in Claude Desktop MCP config
+├── docs/
+│   ├── ARCHITECTURE.md         # System design deep-dive
+│   └── portfolio-kit.md        # GitHub/LinkedIn/resume presentation content
+├── examples/
+│   └── full_recon_workflow.md  # Real end-to-end usage walkthrough
 ├── tests/
 │   └── smoke_test.sh           # Verifies the server initializes over MCP
+├── .gitignore
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
