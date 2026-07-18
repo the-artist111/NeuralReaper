@@ -1,0 +1,6 @@
+mcp[cli]>=1.0.0
+fastmcp>=0.4.0
+impacket>=0.11.0
+certipy-ad>=4.8.0
+bloodhound>=1.7.2
+bloodyAD>=2.1.0
