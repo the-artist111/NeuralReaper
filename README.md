@@ -81,6 +81,20 @@ Claude Desktop spawns the container per-session over stdio — there is no persi
 
 ---
 
+## GhostInShell — Adversary Emulation Engine
+
+GhostInShell is NeuralReaper v2.0's adversary emulation module. It simulates multi-stage attack chains based on real-world CVEs and TTPs, generating detection artifacts for blue team training and validation.
+
+### What GhostInShell Does
+
+| Capability | Output | Purpose |
+|------------|--------|---------|
+| **Attack Surface Analysis** | Prioritized list of potential attack vectors | Recon planning for authorized engagements |
+| **Exploit Chain Simulation** | Graph-optimized sequence of simulated exploits | Purple team exercise planning |
+| **IOC Generation** | File paths, registry keys, network indicators | Detection rule development |
+| **MITRE ATT&CK Mapping** | Technique and sub-technique IDs | Coverage gap analysis |
+| **Detection Test Cases** | Sigma/YARA rule stubs | SIEM/EDR validation |
+
 ## Tool Arsenal
 
 | Category | Tool(s) | What it does |
@@ -103,9 +117,35 @@ Claude Desktop spawns the container per-session over stdio — there is no persi
 | **Session Reporting** | — | `generate_report` compiles every tool call this session into one Markdown report with a severity summary |
 | **Exploit Research** | `searchsploit` | Offline ExploitDB lookup by product or CVE |
 
-46 MCP tools total — run `tool_help` inside Claude for the full callable list with parameters.
+50+ MCP tools total — run `tool_help` inside Claude for the full callable list with parameters.
 
 ---
+### Simulated CVE Coverage (2026)
+
+GhostInShell's simulation library includes attack chain modeling for:
+
+| CVE | Category | Simulation Focus |
+|-----|----------|------------------|
+| CVE-2026-8461 | FFmpeg RCE | Media processing attack surface, file upload validation |
+| CVE-2026-55200 | libssh2 RCE | SSH service hardening, packet size limit testing |
+| CVE-2026-20253 | Splunk RCE | REST API auth validation, app installation policies |
+| CVE-2026-31431 | Linux Kernel LPE | Splice syscall monitoring, SUID binary auditing |
+| CVE-2026-45648 | AD DS NSPI | RPC filter verification, DC hardening |
+| CVE-2026-50751 | Check Point VPN | SSLVPN portal auth testing, VPN appliance patching |
+
+### Example GhostInShell Workflow
+
+```bash
+# Simulate an attack chain against a target profile
+"Simulate a full compromise chain against my lab environment at 192.168.56.10"
+
+# Output:
+# [+] GhostInShell session GHOST-A7B3C9D8E1F2 initiated
+# [+] Objective: full_compromise | Stealth: enabled | Max Depth: 3
+# [+] Attack surface mapped: 5 vectors identified
+# [+] Optimal exploit chain built: CVE-2026-20253 -> CVE-2026-31431 -> CVE-2026-45648
+# [+] Detection artifacts generated: 12 IOCs, 4 Sigma rules, 3 MITRE techniques mapped
+# [+] Report saved to: reports/ghost_a7b3c9d8e1f2.json
 
 ## Quick Start
 
@@ -239,55 +279,115 @@ The takeaway that mattered most: **read the actual log file before changing anyt
 
 ```
 NeuralReaper/
-├── server.py                   # FastMCP server — 46 tool wrappers across 13 modules
-├── Dockerfile                  # Ubuntu 24.04 base + full tool install
-├── docker-compose.yml          # Alternative to manual `docker run`
-├── requirements.txt            # Python deps (mcp, fastmcp)
-├── claude_desktop_config.json  # Drop-in Claude Desktop MCP config
-├── docs/
-│   ├── ARCHITECTURE.md         # System design deep-dive
-│   └── portfolio-kit.md        # GitHub/LinkedIn/resume presentation content
-├── examples/
-│   └── full_recon_workflow.md  # Real end-to-end usage walkthrough
-├── tests/
-│   └── smoke_test.sh           # Verifies the server initializes over MCP
-├── .gitignore
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── LICENSE
-└── README.md
+├── agents/                 # Claude agent configurations
+├── docs/                   # Documentation and assets
+│   └── assets/
+│       └── neuralreaper-ascii.png    # ASCII art logo
+├── examples/               # Example workflows and outputs
+├── tests/                  # Unit and integration tests
+├── tools/                  # MCP tool definitions (46+ tools)
+│   ├── recon/              # Network and web reconnaissance
+│   │   ├── nmap_scan.py
+│   │   ├── masscan_scan.py
+│   │   └── whois_lookup.py
+│   ├── web/                # Web scanning and injection testing
+│   │   ├── nikto_scan.py
+│   │   ├── sqlmap_scan.py
+│   │   └── xsstrike_scan.py
+│   ├── ad/                 # Active Directory tools
+│   │   ├── certipy_enum.py
+│   │   ├── bloodhound_ingest.py
+│   │   └── kerberoast_check.py
+│   ├── crypto/             # Cryptographic audit tools
+│   │   ├── tls_inventory.py
+│   │   └── ssh_algo_audit.py
+│   ├── host/               # Host hardening and rootkit detection
+│   │   ├── lynis_audit.py
+│   │   └── chkrootkit_scan.py
+│   ├── supply_chain/       # Dependency and CI/CD security
+│   │   ├── dependency_check.py
+│   │   └── typosquat_scan.py
+│   ├── ai_security/        # AI agent and MCP security probes
+│   │   ├── mcp_enumerate.py
+│   │   └── prompt_inject_sim.py
+│   └── ghostinshell/       # Adversary emulation engine
+│       ├── ghost_engine.py       # Core simulation engine
+│       ├── chain_builder.py    # Graph-based chain optimizer
+│       ├── ioc_generator.py    # Detection artifact generation
+│       └── mitre_mapper.py     # ATT&CK technique mapping
+├── server.py               # FastMCP server entry point
+├── Dockerfile              # Container definition
+├── docker-compose.yml      # Orchestration config
+├── claude_desktop_config.json  # Claude Desktop integration
+├── requirements.txt        # Python dependencies
+├── CHANGELOG.md            # Version history
+├── CONTRIBUTING.md         # Contribution guidelines
+├── SECURITY.md             # Security policy and reporting
+└── LICENSE                 # MIT License
 ```
 
 ---
 
 ## Roadmap
 
-- [ ] Native bridge-network mode with explicit port mapping for Windows/macOS Docker Desktop
-- [ ] Structured JSON output mode per tool (for downstream parsing instead of raw text)
-- [x] ~~Session report generator that aggregates a full engagement into a single Markdown document~~ — shipped as `generate_report`
-- [ ] PDF export option for `generate_report` (currently Markdown only)
-- [ ] CI pipeline that builds the image and runs `tests/smoke_test.sh` on every push
-- [ ] PingCastle integration — currently skipped; it's a .NET/Windows-only tool meant to run on a domain-joined host, not from a Linux container against a remote target. Best used as a separate, complementary tool rather than forced into this container via Wine/Mono.
-- [ ] Autonomous PoV generation (à la FuzzingBrain/Revelio) — a genuinely research-grade capability. `fuzz_binary` gives the practical building block (crash discovery via AFL++); full automated hypothesis-generation-and-verification on arbitrary codebases is a much larger system and isn't implemented here. Listed honestly as a stretch goal, not oversold as already working.
+| Version | Planned Feature                                          | Status   |
+| ------- | -------------------------------------------------------- | -------- |
+| v2.1    | GhostInShell MITRE ATT\&CK Navigator export              | Planned  |
+| v2.1    | Sigma rule auto-generation from simulation chains        | Planned  |
+| v2.2    | Cloud-native attack path simulation (AWS/Azure/GCP)      | Planned  |
+| v2.2    | Kubernetes security assessment tools                     | Planned  |
+| v3.0    | Multi-agent Claude orchestration for complex assessments | Research |
+
 
 ---
 
 ## Contributing
 
-Adding a new tool wrapper is intentionally mechanical — see [CONTRIBUTING.md](CONTRIBUTING.md) for the exact constraints (Claude Desktop's MCP gateway is picky about type hints and docstrings) before opening a PR.
+We welcome contributions that align with our Detection, Not Weaponization philosophy. Please see CONTRIBUTING.md for guidelines.
+Types of contributions we love:
+New MCP tool integrations for reconnaissance and detection
+Additional Nuclei template categories for the CVE watchlist
+GhostInShell simulation scenarios for emerging attack techniques
+Documentation and tutorial improvements
+Bug fixes and performance optimizations
+Types of contributions we will not accept:
+Exploit payload generation or weaponization features
+Tools designed to bypass security controls on target systems
+Any code that executes attacks against systems without explicit authorization
+
 
 ---
 
 ## Disclaimer
 
-NeuralReaper is built for **authorized** penetration testing and security research — systems you own, or have explicit written permission to test. Running these tools against infrastructure you don't have authorization for is illegal in most jurisdictions. The author assumes no liability for misuse.
+NeuralReaper is intended for authorized security research, penetration testing, and defensive training only. Users are responsible for ensuring they have explicit permission before scanning or assessing any target.
+The GhostInShell adversary emulation module generates only simulated outputs and detection artifacts — it does not execute attacks against live systems. All exploit chain modeling is performed in-memory with no network egress.
+By using this software, you agree to:
+Only scan systems you own or have written authorization to test
+Comply with all applicable laws and regulations in your jurisdiction
+Not use this tool for unauthorized access, data theft, or disruption of services
 
 ---
 
 ## License
 
-[MIT](LICENSE) — see file for details.
+MIT License
+Copyright (c) 2026 the-artist111
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 
