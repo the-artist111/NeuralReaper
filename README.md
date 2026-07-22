@@ -74,28 +74,7 @@ That's a constraint, not a missing feature — and worth saying explicitly: buil
 
 ## Architecture
 
-```mermaid
-graph LR
-    U[Operator] -->|Natural language| CD[Claude Desktop]
-    CD <-->|MCP / stdio| DC[Docker Container]
-
-    subgraph "Isolated Container — non-root"
-        DC --> FM[FastMCP Server<br/>server.py — 46 tools]
-        FM --> NET[Network Recon<br/>nmap · masscan · whois · dig]
-        FM --> WEB[Web Scanning<br/>nikto · curl · openssl]
-        FM --> DIR[Content Discovery<br/>gobuster · ffuf · dirb]
-        FM --> CVE[Auto-CVE Engine<br/>nuclei — 12k+ templates]
-        FM --> WATCH[CVE Watchlist<br/>curated 2026 lookup]
-        FM --> INJ[Injection Testing<br/>sqlmap · xsstrike]
-        FM --> CMS[CMS Scanning<br/>wpscan]
-        FM --> AD[Active Directory<br/>certipy · bloodhound · bloodyAD · impacket]
-        FM --> CRYPTO[Crypto / PQC<br/>TLS+SSH algo inventory · HNDL risk]
-        FM --> HOST[Host Hardening<br/>chkrootkit · rkhunter · lynis]
-        FM --> SUPPLY[Supply Chain<br/>osv-scanner]
-        FM --> FUZZ[Fuzzing<br/>AFL++]
-        FM --> ORCH[full_recon Orchestrator<br/>+ session report generator]
-        FM --> EXP[Exploit Research<br/>searchsploit]
-    end
+<img src="docs/neuralreaper_v2_architecture.png" alt="NeuralReaper v2.0 Architecture" width="100%"/>
 ```
 
 Claude Desktop spawns the container per-session over stdio — there is no persistent network listener, no exposed port, and no state retained between runs beyond what Docker itself caches (e.g. Nuclei's template directory) and the in-memory session log used by `generate_report()`.
