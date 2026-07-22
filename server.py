@@ -303,6 +303,21 @@ def nuclei_scan(target: str = "", severity: str = "critical,high,medium") -> str
         return f"=== NUCLEI SCAN: {t} [severity={severity}] ===\n{run_command(cmd, 600)}"
     except ValueError as e:
         return f"[INPUT ERROR] {e}"
+@mcp.tool()
+def fp_filter_nuclei(raw_output: str = "", min_confidence: float = 0.70) -> str:
+    """Filter Nuclei output to remove common false positives."""
+    from false_positive_filter import FalsePositiveFilter
+    fp_filter = FalsePositiveFilter(min_confidence=min_confidence)
+    filtered = fp_filter.filter_nuclei(raw_output)
+    return f"{filtered}\n\n{fp_filter.get_report()}"
+
+@mcp.tool()
+def fp_filter_sqlmap(raw_output: str = "", min_confidence: float = 0.60) -> str:
+    """Filter SQLMap output to remove common false positives."""
+    from false_positive_filter import FalsePositiveFilter
+    fp_filter = FalsePositiveFilter(min_confidence=min_confidence)
+    filtered = fp_filter.filter_sqlmap(raw_output)
+    return f"{filtered}\n\n{fp_filter.get_report()}"
 
 @mcp.tool()
 @log_session("nuclei_cve")
