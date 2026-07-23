@@ -80,7 +80,32 @@ That's a constraint, not a missing feature — and worth saying explicitly: buil
 Claude Desktop spawns the container per-session over stdio — there is no persistent network listener, no exposed port, and no state retained between runs beyond what Docker itself caches (e.g. Nuclei's template directory) and the in-memory session log used by `generate_report()`.
 
 ---
+## 🧠 Real-Time Threat Intelligence
 
+NeuralReaper integrates a Threat Intelligence Engine that continuously synchronizes vulnerability intelligence from trusted public sources, providing AI agents with an up-to-date local intelligence database.
+
+### Sources
+
+- National Vulnerability Database (NVD)
+- CISA Known Exploited Vulnerabilities (KEV)
+- The Hacker News
+- BleepingComputer
+- SecurityWeek
+- ProjectDiscovery
+
+### Capabilities
+
+- Live CVE synchronization
+- Security news aggregation
+- Known exploited vulnerability tracking
+- Automatic intelligence updates
+- Local threat intelligence database
+
+```bash
+python -m intelligence.updater
+
+
+```
 ## GhostInShell — Adversary Emulation Engine
 
 GhostInShell is NeuralReaper v2.0's adversary emulation module. It simulates multi-stage attack chains based on real-world CVEs and TTPs, generating detection artifacts for blue team training and validation.
@@ -117,7 +142,7 @@ GhostInShell is NeuralReaper v2.0's adversary emulation module. It simulates mul
 | **Session Reporting** | — | `generate_report` compiles every tool call this session into one Markdown report with a severity summary |
 | **Exploit Research** | `searchsploit` | Offline ExploitDB lookup by product or CVE |
 
-50+ MCP tools total — run `tool_help` inside Claude for the full callable list with parameters.
+50+ NeuralReaper security workflows — run `tool_help` inside Claude for the full callable list with parameters.
 
 ---
 ### Simulated CVE Coverage (2026)
@@ -132,7 +157,7 @@ GhostInShell's simulation library includes attack chain modeling for:
 | CVE-2026-31431 | Linux Kernel LPE | Splice syscall monitoring, SUID binary auditing |
 | CVE-2026-45648 | AD DS NSPI | RPC filter verification, DC hardening |
 | CVE-2026-50751 | Check Point VPN | SSLVPN portal auth testing, VPN appliance patching |
-
+ 
 ### Example GhostInShell Workflow
 
 ```bash
