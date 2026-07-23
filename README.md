@@ -142,7 +142,7 @@ GhostInShell is NeuralReaper v2.0's adversary emulation module. It simulates mul
 | **Session Reporting** | — | `generate_report` compiles every tool call this session into one Markdown report with a severity summary |
 | **Exploit Research** | `searchsploit` | Offline ExploitDB lookup by product or CVE |
 
-50+ NeuralReaper security workflows — run `tool_help` inside Claude for the full callable list with parameters.
+46 NeuralReaper security workflows — run `tool_help` inside Claude for the full callable list with parameters.
 
 ---
 ## CVE-Informed Adversary Simulation
