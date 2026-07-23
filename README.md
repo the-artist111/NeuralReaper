@@ -145,18 +145,18 @@ GhostInShell is NeuralReaper v2.0's adversary emulation module. It simulates mul
 50+ NeuralReaper security workflows — run `tool_help` inside Claude for the full callable list with parameters.
 
 ---
-### Simulated CVE Coverage (2026)
+## CVE-Informed Adversary Simulation
 
-GhostInShell's simulation library includes attack chain modeling for:
+GhostInShell's simulation library includes attack chain modeling based on vulnerability intelligence, CVE research, and MITRE ATT&CK techniques.
 
-| CVE | Category | Simulation Focus |
+| Scenario | Category | Simulation Focus |
 |-----|----------|------------------|
 | CVE-2026-8461 | FFmpeg RCE | Media processing attack surface, file upload validation |
 | CVE-2026-55200 | libssh2 RCE | SSH service hardening, packet size limit testing |
-| CVE-2026-20253 | Splunk RCE | REST API auth validation, app installation policies |
-| CVE-2026-31431 | Linux Kernel LPE | Splice syscall monitoring, SUID binary auditing |
-| CVE-2026-45648 | AD DS NSPI | RPC filter verification, DC hardening |
-| CVE-2026-50751 | Check Point VPN | SSLVPN portal auth testing, VPN appliance patching |
+| CVE-2026-20253 | Splunk RCE | REST API authentication validation, application security controls |
+| CVE-2026-31431 | Linux Kernel LPE | Privilege escalation monitoring, SUID auditing |
+| CVE-2026-45648 | AD DS NSPI | RPC filtering, domain controller hardening |
+| CVE-2026-50751 | Check Point VPN | VPN exposure assessment, authentication validation |
  
 ### Example GhostInShell Workflow
 
