@@ -298,21 +298,22 @@ Authentic build log, kept here deliberately instead of polished away — this is
 
 The takeaway that mattered most: **read the actual log file before changing anything.** Every fix above came from `%APPDATA%\Claude\logs\mcp-server-NeuralReaper.log`, not guesswork.
 
----
-## Project Structure
+## 📂 Project Structure
 
+```text
 NeuralReaper/
-├── agents/                     # AI agent configurations
-├── intelligence/               # Real-time threat intelligence engine
-│   ├── rss.py                  # RSS threat feeds
-│   ├── nvd.py                  # NVD CVE collector
-│   ├── cisa.py                 # CISA KEV collector
-│   ├── database.py             # Intelligence database
-│   ├── parser.py               # Feed parser
-│   ├── scheduler.py            # Scheduled updates
-│   └── updater.py              # Unified intelligence updater
+├── agents/                 # AI agent configurations
+├── intelligence/           # Real-time threat intelligence engine
+│   ├── rss.py              # RSS threat feed collector
+│   ├── nvd.py              # NVD CVE collector
+│   ├── cisa.py             # CISA KEV collector
+│   ├── database.py         # Intelligence database
+│   ├── parser.py           # Feed parser
+│   ├── scheduler.py        # Scheduled updates
+│   ├── updater.py          # Unified intelligence updater
+│   └── __init__.py
 │
-├── data/                       # Cached threat intelligence
+├── data/                   # Cached threat intelligence
 │   ├── rss_news.json
 │   ├── cisa_kev.json
 │   ├── intelligence_db.json
@@ -320,13 +321,13 @@ NeuralReaper/
 │
 ├── docs/
 │   ├── ARCHITECTURE.md
-│   ├── portfolio-kit.md
 │   ├── neuralreaper_v2_architecture.png
-│   └── assets/
+│   ├── assets/
+│   └── portfolio-kit.md
 │
-├── examples/                   # Example workflows
-├── tests/                      # Unit & integration tests
-├── tools/                      # MCP security modules
+├── examples/
+├── tests/
+├── tools/
 │   ├── recon/
 │   ├── web/
 │   ├── ad/
@@ -336,7 +337,7 @@ NeuralReaper/
 │   ├── ai_security/
 │   └── ghostinshell/
 │
-├── server.py                   # FastAPI MCP server
+├── server.py
 ├── Dockerfile
 ├── docker-compose.yml
 ├── claude_desktop_config.json
@@ -345,6 +346,7 @@ NeuralReaper/
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 └── LICENSE
+````
 
 ```
 
