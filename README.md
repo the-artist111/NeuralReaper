@@ -300,55 +300,50 @@ The takeaway that mattered most: **read the actual log file before changing anyt
 
 ---
 
-## Project Structure
-
-```
 NeuralReaper/
-├── agents/                 # Claude agent configurations
-├── docs/                   # Documentation and assets
+├── agents/                     # AI agent configurations
+├── intelligence/               # Real-time threat intelligence engine
+│   ├── rss.py                  # RSS threat feeds
+│   ├── nvd.py                  # NVD CVE collector
+│   ├── cisa.py                 # CISA KEV collector
+│   ├── database.py             # Intelligence database
+│   ├── parser.py               # Feed parser
+│   ├── scheduler.py            # Scheduled updates
+│   └── updater.py              # Unified intelligence updater
+│
+├── data/                       # Cached threat intelligence
+│   ├── rss_news.json
+│   ├── cisa_kev.json
+│   ├── intelligence_db.json
+│   └── threat_intelligence.json
+│
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── portfolio-kit.md
+│   ├── neuralreaper_v2_architecture.png
 │   └── assets/
-│       └── neuralreaper-ascii.png    # ASCII art logo
-├── examples/               # Example workflows and outputs
-├── tests/                  # Unit and integration tests
-├── tools/                  # MCP tool definitions (46+ tools)
-│   ├── recon/              # Network and web reconnaissance
-│   │   ├── nmap_scan.py
-│   │   ├── masscan_scan.py
-│   │   └── whois_lookup.py
-│   ├── web/                # Web scanning and injection testing
-│   │   ├── nikto_scan.py
-│   │   ├── sqlmap_scan.py
-│   │   └── xsstrike_scan.py
-│   ├── ad/                 # Active Directory tools
-│   │   ├── certipy_enum.py
-│   │   ├── bloodhound_ingest.py
-│   │   └── kerberoast_check.py
-│   ├── crypto/             # Cryptographic audit tools
-│   │   ├── tls_inventory.py
-│   │   └── ssh_algo_audit.py
-│   ├── host/               # Host hardening and rootkit detection
-│   │   ├── lynis_audit.py
-│   │   └── chkrootkit_scan.py
-│   ├── supply_chain/       # Dependency and CI/CD security
-│   │   ├── dependency_check.py
-│   │   └── typosquat_scan.py
-│   ├── ai_security/        # AI agent and MCP security probes
-│   │   ├── mcp_enumerate.py
-│   │   └── prompt_inject_sim.py
-│   └── ghostinshell/       # Adversary emulation engine
-│       ├── ghost_engine.py       # Core simulation engine
-│       ├── chain_builder.py    # Graph-based chain optimizer
-│       ├── ioc_generator.py    # Detection artifact generation
-│       └── mitre_mapper.py     # ATT&CK technique mapping
-├── server.py               # FastMCP server entry point
-├── Dockerfile              # Container definition
-├── docker-compose.yml      # Orchestration config
-├── claude_desktop_config.json  # Claude Desktop integration
-├── requirements.txt        # Python dependencies
-├── CHANGELOG.md            # Version history
-├── CONTRIBUTING.md         # Contribution guidelines
-├── SECURITY.md             # Security policy and reporting
-└── LICENSE                 # MIT License
+│
+├── examples/                   # Example workflows
+├── tests/                      # Unit & integration tests
+├── tools/                      # MCP security modules
+│   ├── recon/
+│   ├── web/
+│   ├── ad/
+│   ├── crypto/
+│   ├── host/
+│   ├── supply_chain/
+│   ├── ai_security/
+│   └── ghostinshell/
+│
+├── server.py                   # FastAPI MCP server
+├── Dockerfile
+├── docker-compose.yml
+├── claude_desktop_config.json
+├── requirements.txt
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── LICENSE
 ```
 
 ---
