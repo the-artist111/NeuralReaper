@@ -56,7 +56,7 @@ The result: you describe an objective in plain English, and Claude plans and exe
 
 What makes it worth putting on a resume rather than just a script:
 
-- **A live, auto-updating CVE engine.** [Nuclei](https://github.com/projectdiscovery/nuclei) ships 12,000+ community templates and is updated continuously, so the scanner isn't frozen at whatever existed when the image was built.
+- **A live, auto-updating vulnerability intelligence engine. NeuralReaper synchronizes vulnerability data from sources such as NVD and CISA KEV into a local intelligence database, allowing AI workflows and scanning modules to operate with current vulnerability context. Nuclei templates provide additional detection coverage through continuously maintained community research.
 - **Isolated by design.** Every tool runs inside a locked-down, non-root Ubuntu container — never on the host.
 - **A real engineering trail.** Built across Windows + WSL2 + Docker Desktop + Claude Desktop, hitting (and solving) the exact integration failures documented below instead of glossing over them.
 - **Breadth across the full modern assessment surface** — network/web recon, Active Directory attack-path enumeration, cryptographic/post-quantum posture, supply-chain dependency auditing, and local fuzzing — not just a wrapper around one scanner.
