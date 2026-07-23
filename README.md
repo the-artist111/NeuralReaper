@@ -238,15 +238,15 @@ Or check directly inside Claude Desktop: **Settings → Developer → Local MCP 
 ## Usage Examples
 
 ```
-"Update Nuclei templates, then run a full CVE scan on 192.168.1.10"
-"Check my lab DC against the curated CVE watchlist, then check its TLS for post-quantum readiness"
+"Sync latest vulnerability intelligence, then run a full CVE scan on 192.168.1.10"
+"Check my lab DC against current vulnerability intelligence, then check its TLS for post-quantum readiness"
 "Run certipy_find against my lab domain, then check for kerberoastable accounts"
 "Run a full_recon on target.local and tell me what to prioritize testing"
 "Audit this container's hardening with lynis, then run chkrootkit"
 "Check 192.168.1.50 for ransomware-relevant exposure, then generate a report of everything we've found this session"
 ```
 
-Sample tail of a real `nuclei_scan` run:
+Example output from a NeuralReaper orchestrated nuclei_scan workflow:
 
 ```
 === NUCLEI SCAN: http://192.168.56.10 [severity=critical,high,medium] ===
