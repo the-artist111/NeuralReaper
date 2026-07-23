@@ -299,6 +299,7 @@ Authentic build log, kept here deliberately instead of polished away — this is
 The takeaway that mattered most: **read the actual log file before changing anything.** Every fix above came from `%APPDATA%\Claude\logs\mcp-server-NeuralReaper.log`, not guesswork.
 
 ---
+## Project Structure
 
 NeuralReaper/
 ├── agents/                     # AI agent configurations
